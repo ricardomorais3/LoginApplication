@@ -1,10 +1,10 @@
 package org.academiadecodigo.loginSceneBuilder.service.user;
 
 import org.academiadecodigo.loginSceneBuilder.model.User;
+import org.academiadecodigo.loginSceneBuilder.model.dao.RoleDao;
 import org.academiadecodigo.loginSceneBuilder.model.dao.UserDao;
 import org.academiadecodigo.loginSceneBuilder.persistence.TransactionException;
 import org.academiadecodigo.loginSceneBuilder.persistence.TransactionManager;
-import org.academiadecodigo.loginSceneBuilder.service.user.UserService;
 
 /**
  * Created by codecadet on 01/12/16.
@@ -13,6 +13,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private TransactionManager transactionManager;
+    private RoleDao roledao;
 
     public UserServiceImpl(UserDao userDao, TransactionManager transactionManager) {
         this.userDao = userDao;
@@ -30,7 +31,8 @@ public class UserServiceImpl implements UserService {
 
         try {
             transactionManager.beginTransaction();
-            userDao.addUser(user);
+
+            userDao.add(user);
             transactionManager.commit();
         } catch (TransactionException e) {
             transactionManager.rollback();

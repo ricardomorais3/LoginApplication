@@ -13,7 +13,7 @@ import org.hibernate.criterion.Restrictions;
 public class HibernateUserDao implements UserDao {
 
     @Override
-    public void addUser(User user) {
+    public void add(User user) {
         try {
             HibernateSessionManager.getSession().save(user);
         } catch (HibernateException e) {

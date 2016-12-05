@@ -12,6 +12,15 @@
         <property name="username" column="username" type="string"/>
         <property name="password" column="password" type="string"/>
         <property name="email" column="email" type="string"/>
-
+        <many-to-one class="org.academiadecodigo.loginSceneBuilder.model.Role" name="role" column="role_id"
+                     unique="true" not-null="true" cascade="all"/>
     </class>
+
+    <class name="org.academiadecodigo.loginSceneBuilder.model.Role" table="roles">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="description" column="description" type="string"/>
+    </class>
+
 </hibernate-mapping>

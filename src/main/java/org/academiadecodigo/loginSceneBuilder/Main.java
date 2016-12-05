@@ -36,7 +36,6 @@ public class Main extends Application{
         //ServiceRegistry.getInstance().addService(new JdbcUserService(connectionManager));
         //ServiceRegistry.getInstance().addService(new HibernateUserService());
 
-
         UserService userService = new UserServiceImpl(new HibernateUserDao(), new HibernateTransactionManager());
         ServiceRegistry.getInstance().addService(userService);
 
