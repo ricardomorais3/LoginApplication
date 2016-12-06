@@ -34,4 +34,8 @@ public class ServiceRegistry {
         return services.get(serviceName);
     }
 
+    public Map<String, Service> getServicesMap() {
+        return services;
+    }
+
 }

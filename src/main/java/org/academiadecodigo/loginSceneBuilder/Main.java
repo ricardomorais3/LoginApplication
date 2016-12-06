@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import org.academiadecodigo.loginSceneBuilder.model.dao.hibernate.HibernateRoleDao;
 import org.academiadecodigo.loginSceneBuilder.service.ServiceRegistry;
 import org.academiadecodigo.loginSceneBuilder.service.user.UserService;
 import org.academiadecodigo.loginSceneBuilder.service.user.UserServiceImpl;
@@ -36,7 +37,7 @@ public class Main extends Application{
         //ServiceRegistry.getInstance().addService(new JdbcUserService(connectionManager));
         //ServiceRegistry.getInstance().addService(new HibernateUserService());
 
-        UserService userService = new UserServiceImpl(new HibernateUserDao(), new HibernateTransactionManager());
+        UserService userService = new UserServiceImpl(new HibernateUserDao(), new HibernateRoleDao(), new HibernateTransactionManager());
         ServiceRegistry.getInstance().addService(userService);
 
         //((LoginController) Navigation.getInstance().getController("login")).setUserService(new JdbcUserService(connectionManager));

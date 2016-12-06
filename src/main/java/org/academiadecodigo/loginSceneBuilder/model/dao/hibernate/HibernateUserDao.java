@@ -10,9 +10,13 @@ import org.hibernate.criterion.Restrictions;
 /**
  * Created by codecadet on 01/12/16.
  */
-public class HibernateUserDao implements UserDao {
+public class HibernateUserDao extends HibernateDao<User> implements UserDao {
 
-    @Override
+    public HibernateUserDao() {
+        super(User.class);
+    }
+
+/*    @Override
     public void add(User user) {
         try {
             HibernateSessionManager.getSession().save(user);
@@ -20,6 +24,17 @@ public class HibernateUserDao implements UserDao {
             throw new TransactionException(e);
         }
     }
+
+    @Override
+    public int count() {
+        int count = 0;
+        try {
+            count = HibernateSessionManager.getSession().createCriteria(User.class).list().size();
+        } catch (HibernateException e) {
+            throw new TransactionException(e);
+        }
+        return count;
+    }*/
 
     @Override
     public User findByName(String username) {
@@ -33,14 +48,4 @@ public class HibernateUserDao implements UserDao {
         return tempUser;
     }
 
-    @Override
-    public int count() {
-        int count = 0;
-        try {
-            count = HibernateSessionManager.getSession().createCriteria(User.class).list().size();
-        } catch (HibernateException e) {
-            throw new TransactionException(e);
-        }
-        return count;
-    }
 }
