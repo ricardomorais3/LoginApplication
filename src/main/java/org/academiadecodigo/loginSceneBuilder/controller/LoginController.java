@@ -171,7 +171,7 @@ public class LoginController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         //userService = (UserService)ServiceRegistry.getInstance().getService("JdbcUserService");
         //userService = (UserService)ServiceRegistry.getInstance().getService("HibernateUserService");
-        userService = (UserService)ServiceRegistry.getInstance().getService(UserService.class.getName());
+        //userService = (UserService)ServiceRegistry.getInstance().getService(UserService.class.getName());
 
     }
 

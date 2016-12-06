@@ -40,7 +40,7 @@ public class HibernateUserDao extends HibernateDao<User> implements UserDao {
     public User findByName(String username) {
         User tempUser = null;
         try {
-            tempUser = (User) HibernateSessionManager.getSession().createCriteria(User.class)
+            tempUser = (User) hibernateSessionManager.getSession().createCriteria(User.class)
                     .add(Restrictions.eq("username", username)).uniqueResult();
         } catch (HibernateException e) {
             throw new TransactionException(e);

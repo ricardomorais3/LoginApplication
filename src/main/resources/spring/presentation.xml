@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="navigation" class="org.academiadecodigo.loginSceneBuilder.navigation.Navigation"
+          factory-method="getInstance">
+        <property name="controllers">
+            <map>
+                <entry key="LoginController" value-ref="loginController"/>
+                <entry key="HomeController" value-ref="homeController"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="loginController" class="org.academiadecodigo.loginSceneBuilder.controller.LoginController">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="homeController" class="org.academiadecodigo.loginSceneBuilder.controller.HomeController">
+    </bean>
+
+</beans>

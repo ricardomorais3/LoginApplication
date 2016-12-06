@@ -13,6 +13,8 @@ import org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateSes
 import org.academiadecodigo.loginSceneBuilder.navigation.Navigation;
 import org.academiadecodigo.loginSceneBuilder.persistence.jdbc.ConnectionManager;
 import org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateTransactionManager;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by codecadet on 17/11/16.
@@ -37,8 +39,8 @@ public class Main extends Application{
         //ServiceRegistry.getInstance().addService(new JdbcUserService(connectionManager));
         //ServiceRegistry.getInstance().addService(new HibernateUserService());
 
-        UserService userService = new UserServiceImpl(new HibernateUserDao(), new HibernateRoleDao(), new HibernateTransactionManager());
-        ServiceRegistry.getInstance().addService(userService);
+        //UserService userService = new UserServiceImpl(new HibernateUserDao(), new HibernateRoleDao(), new HibernateTransactionManager());
+        //ServiceRegistry.getInstance().addService(userService);
 
         //((LoginController) Navigation.getInstance().getController("login")).setUserService(new JdbcUserService(connectionManager));
 
@@ -48,18 +50,24 @@ public class Main extends Application{
     public void stop() throws Exception {
         super.stop();
         //connectionManager.close();
-        HibernateSessionManager.close();
+        //HibernateSessionManager.close();
 
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-config.xml");
+        Navigation navigation = context.getBean("navigation", Navigation.class);
+
+        navigation.setStage(primaryStage);
+        navigation.loadScreen("login");
+
         // set the primary stage
-        Navigation.getInstance().setStage(primaryStage);
+        //Navigation.getInstance().setStage(primaryStage);
 
         // load the first scene
-        Navigation.getInstance().loadScreen("login");
+        //Navigation.getInstance().loadScreen("login");
 
     }
 

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -55,10 +56,18 @@ public class Navigation {
             // Instantiate the org.academiadecodigo.sceneBuilderFxml.view and the org.academiadecodigo.sceneBuilderFxml.controller
             FXMLLoader fxmlLoader;
             fxmlLoader = new FXMLLoader(getClass().getResource(VIEW_PATH + "/" + view + ".fxml"));
+
+            fxmlLoader.setControllerFactory(new Callback<Class<?>, Object>() {
+                @Override
+                public Object call(Class<?> param) {
+                    return controllers.get(param.getSimpleName());
+                }
+            });
+
             Parent root = fxmlLoader.load();
 
             //Store the org.academiadecodigo.sceneBuilderFxml.controller
-            controllers.put(view, (Initializable) fxmlLoader.getController());
+            //controllers.put(view, (Initializable) fxmlLoader.getController());
 
             // Create a new scene and add it to the stack
             Scene scene = new Scene(root, MIN_WIDTH, MIN_HEIGHT);
@@ -98,4 +107,7 @@ public class Navigation {
         this.stage = stage;
     }
 
+    public void setControllers(Map controllers) {
+        this.controllers = controllers;
+    }
 }

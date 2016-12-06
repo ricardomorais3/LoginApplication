@@ -8,24 +8,29 @@ import org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateSes
  */
 public class HibernateTransactionManager implements TransactionManager {
 
+    private HibernateSessionManager hibernateSessionManager;
+
     @Override
     public void beginTransaction() {
-        HibernateSessionManager.beginTransaction();
-
+        hibernateSessionManager.beginTransaction();
     }
 
     @Override
     public void commit() {
-        HibernateSessionManager.commitTransaction();
+        hibernateSessionManager.commitTransaction();
     }
 
     @Override
     public void rollback() {
-        HibernateSessionManager.rollbackTransaction();
+        hibernateSessionManager.rollbackTransaction();
     }
 
     @Override
     public void close() {
-        HibernateSessionManager.close();
+        hibernateSessionManager.close();
+    }
+
+    public void setHibernateSessionManager(HibernateSessionManager hibernateSessionManager) {
+        this.hibernateSessionManager = hibernateSessionManager;
     }
 }

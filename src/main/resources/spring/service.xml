@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="org.academiadecodigo.loginSceneBuilder.service.user.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="roleDao" ref="roleDao"/>
+        <constructor-arg name="transactionManager" ref="hibernateTransactionManager"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateTransactionManager">
+    </bean>
+
+</beans>

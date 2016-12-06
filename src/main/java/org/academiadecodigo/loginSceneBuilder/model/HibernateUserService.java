@@ -10,22 +10,46 @@ import org.hibernate.criterion.Restrictions;
  * Created by codecadet on 01/12/16.
  */
 public class HibernateUserService implements UserService {
+    @Override
+    public boolean authenticate(String username, String password) {
+        return false;
+    }
+
+    @Override
+    public void addUser(User user) {
+
+    }
+
+    @Override
+    public User findByName(String username) {
+        return null;
+    }
+
+    @Override
+    public int count() {
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 
     //private String serviceName = "HibernateUserService";
 
-    @Override
+    /*@Override
     public boolean authenticate(String username, String password) {
 
         User tempUser;
         return ((tempUser = findByName(username)) != null) && tempUser.getPassword().equals(password);
 
         //todo: use queries to get the boolean
-/*        try{
+        try{
             Session session = HibernateSessionManager.beginTransaction();
 
         }catch (HibernateException e){
             HibernateSessionManager.rollbackTransaction();
-        }*/
+        }
     }
 
     @Override
@@ -81,5 +105,5 @@ public class HibernateUserService implements UserService {
     @Override
     public String getName() {
         return UserService.class.getName();
-    }
+    }*/
 }

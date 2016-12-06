@@ -12,16 +12,18 @@ import org.hibernate.criterion.Projections;
 public abstract class HibernateDao<T> implements Dao<T>{
 
     private Class<T> type;
+    public HibernateSessionManager hibernateSessionManager;
 
     public HibernateDao(Class<T> type) {
         this.type = type;
     }
 
+
     @Override
     public void add(T t) {
         try {
 
-            HibernateSessionManager.getSession().saveOrUpdate(t);
+            hibernateSessionManager.getSession().saveOrUpdate(t);
 
         } catch (HibernateException hex) {
             throw new TransactionException(hex);
@@ -32,7 +34,7 @@ public abstract class HibernateDao<T> implements Dao<T>{
     public int count() {
         try {
 
-            return (int) HibernateSessionManager.getSession().createCriteria(type)
+            return (int) hibernateSessionManager.getSession().createCriteria(type)
                     .setProjection(Projections.rowCount())
                     .uniqueResult();
 
@@ -45,10 +47,14 @@ public abstract class HibernateDao<T> implements Dao<T>{
     public void delete(T t) {
         try {
 
-            HibernateSessionManager.getSession().delete(t);
+            hibernateSessionManager.getSession().delete(t);
 
         } catch (HibernateException hex) {
             throw new TransactionException(hex);
         }
+    }
+
+    public void setHibernateSessionManager(HibernateSessionManager hibernateSessionManager) {
+        this.hibernateSessionManager = hibernateSessionManager;
     }
 }

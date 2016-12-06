@@ -12,12 +12,16 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateSessionManager {
 
-    private static SessionFactory sessionFactory;
+    private /*static*/ SessionFactory sessionFactory;
 
-    private HibernateSessionManager() {
+/*    private HibernateSessionManager() {
+    }*/
+
+    public HibernateSessionManager(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    static {
+/*    static {
         // hibernate initialization code
         try {
 
@@ -33,30 +37,30 @@ public class HibernateSessionManager {
         } catch (HibernateException ex) {
             throw new ExceptionInInitializerError("Error creating hibernate session factory: " + ex.getMessage());
         }
-    }
+    }*/
 
-    public static Session beginTransaction() {
+    public /*static*/ Session beginTransaction() {
         Session s = getSession();
         s.beginTransaction();
         return s;
     }
 
-    public static void commitTransaction() {
+    public /*static*/ void commitTransaction() {
         getSession().getTransaction().commit();
     }
 
-    public static void rollbackTransaction() {
+    public /*static*/ void rollbackTransaction() {
         getSession().getTransaction().rollback();
     }
 
-    public static Session getSession() {
+    public /*static*/ Session getSession() {
         // Hibernate will automatically open a new session if needed
         // Closing the session is not required
         return sessionFactory.getCurrentSession();
     }
 
     // Required to stop hibernate and allow the application to terminate
-    public static void close() {
+    public /*static*/ void close() {
         sessionFactory.close();
     }
 
