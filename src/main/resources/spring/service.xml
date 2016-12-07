@@ -9,7 +9,4 @@
         <constructor-arg name="transactionManager" ref="hibernateTransactionManager"/>
     </bean>
 
-    <bean id="transactionManager" class="org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateTransactionManager">
-    </bean>
-
 </beans>
