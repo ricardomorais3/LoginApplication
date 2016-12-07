@@ -5,6 +5,7 @@ import org.academiadecodigo.loginSceneBuilder.model.dao.RoleDao;
 import org.academiadecodigo.loginSceneBuilder.model.dao.UserDao;
 import org.academiadecodigo.loginSceneBuilder.persistence.TransactionException;
 import org.academiadecodigo.loginSceneBuilder.persistence.TransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by codecadet on 01/12/16.
@@ -13,34 +14,35 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private RoleDao roledao;
-    private TransactionManager transactionManager;
+    /*private TransactionManager transactionManager;*/
 
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao, TransactionManager transactionManager) {
+    public UserServiceImpl(UserDao userDao, RoleDao roleDao/*, TransactionManager transactionManager*/) {
         this.userDao = userDao;
         this.roledao = roleDao;
-        this.transactionManager = transactionManager;
+        /*this.transactionManager = transactionManager;*/
     }
 
+    @Transactional
     @Override
     public boolean authenticate(String username, String password) {
 
         boolean result = false;
 
-        try {
+/*        try {
 
-            transactionManager.beginTransaction();
+            transactionManager.beginTransaction();*/
 
-            User user = userDao.findByName(username);
-            result = (user != null && user.getPassword().equals(password));
+        User user = userDao.findByName(username);
+        result = (user != null && user.getPassword().equals(password));
 
-            transactionManager.commit();
+/*            transactionManager.commit();
 
         } catch (TransactionException ex) {
 
             System.out.println(ex.getMessage());
             transactionManager.rollback();
 
-        }
+        }*/
 
         return result;
 
@@ -51,25 +53,26 @@ public class UserServiceImpl implements UserService {
      *
      * @param user the new user to add
      */
+    @Transactional
     @Override
     public void addUser(User user) {
 
-        try {
+/*        try {
 
-            transactionManager.beginTransaction();
+            transactionManager.beginTransaction();*/
 
-            if (userDao.findByName(user.getUsername()) == null) {
-                userDao.add(user);
-            }
+        if (userDao.findByName(user.getUsername()) == null) {
+            userDao.add(user);
+        }
 
-            transactionManager.commit();
+/*            transactionManager.commit();
 
         } catch (TransactionException ex) {
 
             System.out.println(ex.getMessage());
             transactionManager.rollback();
 
-        }
+        }*/
 
     }
 
@@ -105,25 +108,26 @@ public class UserServiceImpl implements UserService {
      * @param username the user name used to lookup a user
      * @return a new User if found, null otherwise
      */
+    @Transactional
     @Override
     public User findByName(String username) {
 
         User user = null;
 
-        try {
+/*        try {
 
-            transactionManager.beginTransaction();
+            transactionManager.beginTransaction();*/
 
-            user = userDao.findByName(username);
+        user = userDao.findByName(username);
 
-            transactionManager.commit();
+/*        transactionManager.commit();
 
         } catch (TransactionException ex) {
 
             System.out.println(ex.getMessage());
             transactionManager.rollback();
 
-        }
+        }*/
 
         return user;
 
@@ -134,25 +138,26 @@ public class UserServiceImpl implements UserService {
      *
      * @return the number of users
      */
+    @Transactional
     @Override
     public int count() {
 
         int size = 0;
 
-        try {
+/*        try {
 
-            transactionManager.beginTransaction();
+            transactionManager.beginTransaction();*/
 
-            size = userDao.count();
+        size = userDao.count();
 
-            transactionManager.commit();
+/*            transactionManager.commit();
 
         } catch (TransactionException ex) {
 
             System.out.println(ex.getMessage());
             transactionManager.rollback();
 
-        }
+        }*/
 
         return size;
 

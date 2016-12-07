@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
@@ -28,7 +31,10 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop>
+
+                <!-- Disable Hibernate Session Management, let Spring manage sessions
+                <prop key="hibernate.current_session_context_class">thread</prop> -->
+
                 <!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
             </props>
         </property>
@@ -44,9 +50,16 @@
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- bean transaction manager -->
+    <!-- bean transaction manager
     <bean id="hibernateTransactionManager" class="org.academiadecodigo.loginSceneBuilder.persistence.hibernate.HibernateTransactionManager">
-        <property name="hibernateSessionManager" ref="hibernateSessionManager"/>
+        <property name="hibernateSessionManager" ref="hibernateSessionManager"/> -->
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+
     </bean>
+
+    <!-- Activate annotation-driven transactions -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
